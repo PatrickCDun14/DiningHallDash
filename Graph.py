@@ -1,3 +1,9 @@
+"""
+Description: This script contains a graph with various methods to compute the shortest path
+Author: Greg Occhiogrosso
+Python Version: 3.10.0
+Dependencies: pandas, sys
+"""
 import pandas as pd
 import sys
 
@@ -49,13 +55,24 @@ class Graph:
         self.permute(result,dining_halls,0,len(dining_halls)-1)
         minSum = sys.maxsize
         minPath = []
+        maxPath = []
+        maxSum=0
         for path in result:
             pathSum=self.pathSum(path)
             if pathSum < minSum:
                 minSum=pathSum
                 minPath=path
+            elif pathSum > maxSum:
+                maxSum=pathSum
+                maxPath=path
+        print("Optimal Path")
         self.printPath(minPath)
-        print(minSum)
+        print("Cost " + str(minSum))
+        print("Least Optimal Path")
+        self.printPath(maxPath)
+        print("Cost " + str(maxSum))
+
+
 
     #recursively computes all possible traversal orders    
     def permute(self,result, array, startIndex, endIndex):
@@ -144,7 +161,7 @@ class Graph:
         #preorder traversal
         self.dfs(mst,0,path,visited)
         self.printPath(path)
-        print(self.pathSum(path))
+        print("Cost "+str(self.pathSum(path)))
 
 
 
